@@ -1,0 +1,4 @@
+- name: Synchronize src repos to workspace directory.
+  synchronize:
+     dest: .
+     src: "{{ zuul.executor.src_root }}"
