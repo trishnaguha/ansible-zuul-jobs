@@ -14,6 +14,11 @@
     chdir: "{{ zuul.project.src_dir }}"
   become: yes
 
+- shell: "pip install pexpect"
+  args:
+    executable: /bin/bash
+  become: yes
+
 - shell: "source hacking/env-setup && ansible-test network-integration {{ platform }}{{ tests_regex }} --inventory /tmp/inventory -vvv"
   args:
     executable: /bin/bash
