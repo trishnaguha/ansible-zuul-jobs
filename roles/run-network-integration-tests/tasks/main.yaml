@@ -1,6 +1,3 @@
-- include_role:
-    name: prepare-workspace
-
 - name: Start zuul console daemon
   zuul_console:
 
@@ -10,6 +7,8 @@
       "[{{ platform }}]"
       "{{ hostvars[platform]['ansible_host'] }}" ansible_connection=local
     dest: /tmp/inventory
+
+- shell: cat /tmp/inventory
 
 - shell: "pip install -r requirements.txt && source hacking/env-setup && ansible-test network-integration {{ platform }} --inventory /tmp/inventory -vvv"
   args:
