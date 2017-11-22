@@ -8,7 +8,7 @@
       {{ hostvars[platform]['ansible_host'] }} ansible_connection=local
     dest: /tmp/inventory
 
-- shell: "apt-get -y update && apt-get install python-pip"
+- shell: "apt-get -y update && apt-get -y install python-pip"
 
 - shell: "pip install -r requirements.txt && source hacking/env-setup && ansible-test network-integration {{ platform }}{{ tests_regex }} --inventory /tmp/inventory -vvv"
   args:
