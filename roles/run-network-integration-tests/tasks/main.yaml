@@ -4,8 +4,8 @@
 - name: Create inventory for network node
   copy:
     content: |
-      "[{{ platform }}]"
-      "{{ hostvars[platform]['ansible_host'] }}" ansible_connection=local
+      [{{ platform }}]
+      {{ hostvars[platform]['ansible_host'] }} ansible_connection=local
     dest: /tmp/inventory
 
 - shell: cat /tmp/inventory
