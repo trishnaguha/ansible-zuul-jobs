@@ -10,7 +10,7 @@
 
 - shell: cat /tmp/inventory
 
-- shell: "pip install -r requirements.txt && source hacking/env-setup && ansible-test network-integration {{ platform }} --inventory /tmp/inventory -vvv"
+- shell: "pip install -r requirements.txt && source hacking/env-setup && ansible-test network-integration {{ platform }}{{ tests_regex }} --inventory /tmp/inventory -vvv"
   args:
     executable: /bin/bash
     chdir: "{{ zuul.project.src_dir }}"
