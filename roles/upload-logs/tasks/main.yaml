@@ -1,8 +1,8 @@
 - set_fact:
     log_path: "{{ zuul.tenant }}/{{ zuul.pipeline }}/{{ zuul.project.canonical_name }}/{{ zuul.change }}/{{ zuul.buildset }}/{{ zuul.job }}"
-- command: "ssh -o StrictHostKeyChecking=no zuul@{{ zuul_log_server }} mkdir -p /var/www/html/logs/{{ log_path }}"
-- command: "scp -r -o StrictHostKeyChecking=no {{ zuul.executor.log_root }} zuul@{{ zuul_log_server }}:/var/www/html/logs/{{ log_path }}"
+- command: "ssh -o StrictHostKeyChecking=no zuul@{{ logserver }} mkdir -p /var/www/html/logs/{{ log_path }}"
+- command: "scp -r -o StrictHostKeyChecking=no {{ zuul.executor.log_root }} zuul@{{ logserver }}:/var/www/html/logs/{{ log_path }}"
 - zuul_return:
     data:
       zuul:
-        log_url: "http:{{ zuul_log_server }}/logs/{{ log_path }}/"
+        log_url: "http:{{ logserver }}/logs/{{ log_path }}/"
