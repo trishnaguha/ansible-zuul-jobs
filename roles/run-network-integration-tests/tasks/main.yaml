@@ -5,14 +5,16 @@
   copy:
     content: |
       [{{ platform }}]
-      {{ hostvars[platform]['ansible_host'] }} ansible_connection=local ansible_ssh_user={{ tests_user }}
+      {{ hostvars[platform]['ansible_host'] }} ansible_connection=local ansible_user={{ tests_user }}
     dest: /tmp/inventory
 
-- shell: "apt-get -y update && apt-get -y install python-pip"
-  become: yes
-
-- shell: "pip install -r requirements.txt && source hacking/env-setup && ansible-test network-integration {{ platform }}{{ tests_regex }} --inventory /tmp/inventory -vvv"
+- shell: "apt-get -y update && apt-get -y install python-pip && pip install -r requirements.txt"
   args:
     executable: /bin/bash
     chdir: "{{ zuul.project.src_dir }}"
   become: yes
+
+- shell: "source hacking/env-setup && ansible-test network-integration {{ platform }}{{ tests_regex }} --inventory /tmp/inventory -vvv"
+  args:
+    executable: /bin/bash
+    chdir: "{{ zuul.project.src_dir }}"
