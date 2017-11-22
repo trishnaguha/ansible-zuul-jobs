@@ -1,1 +1,2 @@
 tests_regex: _.*
+tests_user: admin
