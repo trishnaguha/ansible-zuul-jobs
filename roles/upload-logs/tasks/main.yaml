@@ -1,0 +1,11 @@
+- add_host:
+    hostname: 38.145.34.35
+    ansible_user: zuul
+- set_fact:
+    log_path: "{{ zuul.tenant }}/{{ zuul.pipeline }}/{{ zuul.project.canonical_name }}/{{ zuul.change }}/{{ zuul.buildset }}/{{ zuul.job }}"
+- command: "ssh -o StrictHostKeyChecking=no zuul@38.145.34.35 mkdir -p /var/www/html/logs/{{ log_path }}"
+- command: "scp -r -o StrictHostKeyChecking=no {{ zuul.executor.log_root }} zuul@38.145.34.35:/var/www/html/logs/{{ log_path }}"
+- zuul_return:
+    data:
+      zuul:
+        log_url: "http://38.145.34.35/logs/{{ log_path }}/"
