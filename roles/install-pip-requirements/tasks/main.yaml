@@ -1,2 +1,3 @@
 - pip:
-    requirements: "{{ zuul.project.src_dir }}/requirements.txt"
+    requirements: requirements.txt"
+    chdir: "{{ zuul.project.src_dir }}"
