@@ -8,15 +8,17 @@
       {{ hostvars[platform]['ansible_host'] }} ansible_connection=local ansible_network_os={{ platform }} ansible_ssh_private_key_file=/home/zuul/.ssh/id_rsa
     dest: /tmp/inventory
 
-- shell: "apt-get -y update && apt-get -y install python-pip && pip install -r requirements.txt"
-  args:
-    executable: /bin/bash
-    chdir: "{{ zuul.project.src_dir }}"
+- include_role:
+    name: install-pip
   become: yes
 
-- shell: "pip install pexpect"
-  args:
-    executable: /bin/bash
+- include_role:
+    name: install-pip-requirements
+  become: yes
+
+- name: Install packages needed for network integration tests
+  pip:
+    name: pexpect
   become: yes
 
 - shell: "source hacking/env-setup && ansible-test network-integration {{ platform }}{{ tests_regex }} --inventory /tmp/inventory -vvv"
