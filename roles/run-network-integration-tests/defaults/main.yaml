@@ -1,1 +1,3 @@
-tests_regex: _.*
+test_regex: _.*
+test_port: 22
+test_connection: local

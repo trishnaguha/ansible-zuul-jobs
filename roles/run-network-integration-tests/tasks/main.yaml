@@ -1,12 +1,25 @@
 - name: Start zuul console daemon
   zuul_console:
 
-- name: Create inventory for network node
-  copy:
-    content: |
-      [{{ platform }}]
-      {{ hostvars[platform]['ansible_host'] }} ansible_connection=local ansible_network_os={{ platform }} ansible_ssh_private_key_file=/home/zuul/.ssh/id_rsa
-    dest: /tmp/inventory
+- name: Create inventory folder
+  file:
+    path: /tmp/inventory
+    state: directory
+
+- name: Create inventory group_vars folder
+  file:
+    path: /tmp/inventory/group_vars
+    state: directory
+
+- name: Create hosts inventory file
+  template:
+    src: hosts.j2
+    dest: /tmp/inventory/hosts
+
+- name: Create platform group_vars file
+  template:
+    src: group_vars.j2
+    dest: /tmp/inventory/group_vars/{{ test_platform }}
 
 - include_role:
     name: install-pip
@@ -21,7 +34,7 @@
     name: pexpect
   become: yes
 
-- shell: "source hacking/env-setup && ansible-test network-integration {{ platform }}{{ tests_regex }} --inventory /tmp/inventory -vvv"
+- shell: "source hacking/env-setup && ansible-test network-integration {{ test_platform }}{{ test_regex }} --inventory /tmp/inventory -vvv"
   args:
     executable: /bin/bash
     chdir: "{{ zuul.project.src_dir }}"
