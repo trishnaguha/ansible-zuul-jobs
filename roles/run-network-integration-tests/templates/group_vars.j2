@@ -1,4 +1,4 @@
 ansible_connection: {{ test_connection }}
 ansible_network_os: {{ test_platform }}
 ansible_port: {{ test_port }}
-{{ test_custom_options | default() }}
+{{ test_custom_options | from_yaml | default() }}
