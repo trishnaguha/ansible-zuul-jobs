@@ -15,3 +15,4 @@
       net_port: 22
       net_user: zuul
       net_connection: local
+      net_become: no
