@@ -4,5 +4,5 @@
     update_cache: yes
   register: result
   retries: 5
-  delay: 10
+  delay: 60
   until: result|succeeded
