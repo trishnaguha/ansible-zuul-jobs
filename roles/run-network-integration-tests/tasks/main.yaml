@@ -34,7 +34,7 @@
     name: pexpect
   become: yes
 
-- shell: "source hacking/env-setup && ansible-test network-integration {{ net_platform }}{{ net_target_regex }} --inventory /tmp/inventory -vvv
+- shell: "source hacking/env-setup && ansible-test network-integration {{ net_platform }}{{ net_target_regex }} --inventory /tmp/inventory -vvv"
   args:
     executable: /bin/bash
     chdir: "{{ zuul.project.src_dir }}"
