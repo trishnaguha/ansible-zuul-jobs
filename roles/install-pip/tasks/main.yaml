@@ -2,3 +2,7 @@
   apt:
     name: python-pip
     update_cache: yes
+  register: result
+  retries: 5
+  delay: 10
+  until: result.rc == 0
