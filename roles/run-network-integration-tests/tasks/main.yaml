@@ -19,7 +19,7 @@
 - name: Create platform group_vars file
   template:
     src: group_vars.j2
-    dest: /tmp/inventory/group_vars/{{ test_platform }}
+    dest: /tmp/inventory/group_vars/{{ net_platform }}
 
 - include_role:
     name: install-pip
@@ -34,7 +34,7 @@
     name: pexpect
   become: yes
 
-- shell: "source hacking/env-setup && ansible-test network-integration {{ test_platform }}{{ test_regex }} --inventory /tmp/inventory -vvv {{ test_runner_custom_options | default() }}"
+- shell: "source hacking/env-setup && ansible-test network-integration {{ net_platform }}{{ net_target_regex }} --inventory /tmp/inventory -vvv
   args:
     executable: /bin/bash
     chdir: "{{ zuul.project.src_dir }}"

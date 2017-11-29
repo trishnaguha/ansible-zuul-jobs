@@ -1,0 +1,16 @@
+- job:
+    name: network-integration-tests
+
+    description: |
+      Base job for running network integration tests.
+
+      Platform specific integration tests should inherit
+      this job and provide its platform nodesets.
+
+    pre-run: playbooks/network-integration-tests/pre.yaml
+    run: playbooks/network-integration-tests/run.yaml
+
+    vars:
+      net_target_regex: _.*
+      net_port: 22
+      net_connection: local
