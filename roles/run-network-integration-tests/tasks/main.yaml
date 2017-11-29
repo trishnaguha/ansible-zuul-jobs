@@ -21,6 +21,8 @@
     src: group_vars.j2
     dest: /tmp/inventory/group_vars/{{ net_platform }}
 
+- shell: cat /tmp/inventory/group_vars/{{ net_platform }}
+
 - include_role:
     name: install-pip
   become: yes
