@@ -2,4 +2,4 @@ ansible_connection: {{ net_connection }}
 ansible_network_os: {{ net_platform }}
 ansible_port: {{ net_port }}
 ansible_user: {{ net_user }}
-{{ net_custom_options | default() | to_nice_yaml }}
+{{ net_custom_options | to_nice_yaml | default() }}
