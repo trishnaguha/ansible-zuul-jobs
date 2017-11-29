@@ -13,4 +13,5 @@
     vars:
       net_target_regex: _.*
       net_port: 22
+      net_user: zuul
       net_connection: local
