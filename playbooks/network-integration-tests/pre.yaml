@@ -1,4 +1,3 @@
 - hosts: bastion
   roles:
     - prepare-workspace
-    - bootstrap-python
